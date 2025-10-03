@@ -8,3 +8,5 @@ import org.springframework.stereotype.Repository;
                                 //name of the entity and the Long is the primary key
 public interface CardsRepository extends JpaRepository<Cards, Long> {
 }
+
+

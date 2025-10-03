@@ -1,4 +1,6 @@
 package com.example.SpringBootApp.Entity;
+import com.example.SpringBootApp.UserEntity.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 
@@ -19,28 +21,22 @@ public class Cards {
     @Column(name ="cardNumber", nullable = false)
     private String cardNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
+
 
     //getters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
-    public String getCardName() {
-        return cardName;
-    }
-
-    public String getSetName() {
-        return setName;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
+    public String getCardName() {return cardName;}
+    public String getSetName() {return setName;}
+    public String getCardNumber() {return cardNumber;}
+    public User getUser() {return user;}
 
     //setters
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {this.id = id;}
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
@@ -49,6 +45,7 @@ public class Cards {
         this.setName = setName;
     }
     public void setCardNumber(String cardNumber) {this.cardNumber = cardNumber;}
+    public void setUser(User user) {this.user = user;}
 
 }
 
