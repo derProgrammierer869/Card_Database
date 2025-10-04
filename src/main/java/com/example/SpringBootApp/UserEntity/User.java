@@ -1,4 +1,5 @@
 package com.example.SpringBootApp.UserEntity;
+
 import com.example.SpringBootApp.Entity.Cards;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
