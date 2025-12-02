@@ -22,6 +22,8 @@ public class Cards {
     @Column(name ="cardNumber", nullable = false)
     private String cardNumber;
 
+
+    //make comments explaining this later
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference

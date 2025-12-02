@@ -11,3 +11,5 @@ public class SpringBootAppApplication {
 	}
 
 }
+
+//!!!!!!!!!!!!!make sure database is running before starting app!!!!!!!!!!!!!!!!!!!!!!!!!!!

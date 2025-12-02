@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
-
+//possibly add email signup notifications
 @Entity
 @Table(name = "users")
 public class User {
