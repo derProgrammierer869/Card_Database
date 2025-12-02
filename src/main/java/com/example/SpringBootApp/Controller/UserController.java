@@ -72,7 +72,7 @@ public class UserController {
         return ResponseEntity.ok(newCard);
     }
 
-    //testing method
+    //testing method  DELETE LATER
     @GetMapping("/ping")
     public ResponseEntity<String> ping(){ return ResponseEntity.ok("pong"); }
 
