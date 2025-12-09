@@ -7,6 +7,7 @@ import com.example.SpringBootApp.Entity.Cards;
 import com.example.SpringBootApp.UserEntity.User;
 
 
+//user should be able to add a card without needing to be signed in. also users should be unique, no duplicate usernames
 public class ManualMapper {
 
     //maps outgoing user and cards
