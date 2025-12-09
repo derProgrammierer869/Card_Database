@@ -1,0 +1,49 @@
+package com.example.SpringBootApp.Mappers;
+import com.example.SpringBootApp.DTOs.CardsRequestDTO;
+import com.example.SpringBootApp.DTOs.UserRequestDTO;
+import com.example.SpringBootApp.DTOs.UserResponseDTO;
+import com.example.SpringBootApp.DTOs.CardsResponseDTO;
+import com.example.SpringBootApp.Entity.Cards;
+import com.example.SpringBootApp.UserEntity.User;
+
+
+public class ManualMapper {
+
+    //maps outgoing user and cards
+    public UserResponseDTO mapToUserResponse(User user) {
+        return new UserResponseDTO(
+                user.getId(),
+                user.getUsername(),
+
+                user.getCards().stream().map(this::mapToCardsResponse).toList()
+        );
+    }
+
+    public CardsResponseDTO mapToCardsResponse(Cards cards) {
+        return new CardsResponseDTO(
+                cards.getId(),
+                cards.getCardName(),
+                cards.getSetName(),
+                cards.getCardNumber()
+        );
+    }
+
+    //maps incoming user data
+    public User mapToUserRequest(UserRequestDTO userRequestDTO) {
+        User user = new User();
+        user.setUsername(userRequestDTO.username());
+        user.setPassword(userRequestDTO.password());
+        return user;
+    }
+
+    //maps incoming card data !!!!!!!!!maybe delete later. see how to map this to user id!!!!!!!!!!!
+    public Cards mapToCardsRequest(CardsRequestDTO cardsRequestDTO) {
+        Cards cards = new Cards();
+        cards.setCardName(cardsRequestDTO.cardName());
+        cards.setSetName(cardsRequestDTO.setName());
+        cards.setCardNumber(cardsRequestDTO.cardNumber());
+        return cards;
+    }
+
+
+}
