@@ -1,5 +1,6 @@
 package com.example.SpringBootApp.Service;
 
+import com.example.SpringBootApp.Mappers.ManualMapper;
 import com.example.SpringBootApp.Entity.Cards;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,12 @@ import java.util.Optional;
 @Service
 public class CardService {
     private final CardsRepository cardsRepository;
+    private final ManualMapper manualMapper;
 
     @Autowired
-    public CardService(CardsRepository cardsRepository) {
+    public CardService(CardsRepository cardsRepository, ManualMapper manualMapper) {
         this.cardsRepository = cardsRepository;
+        this.manualMapper = manualMapper;
     }
 
     //save a card

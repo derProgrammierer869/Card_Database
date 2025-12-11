@@ -1,5 +1,9 @@
 package com.example.SpringBootApp.Controller;
 
+import com.example.SpringBootApp.DTOs.CardsRequestDTO;
+import com.example.SpringBootApp.DTOs.CardsResponseDTO;
+import com.example.SpringBootApp.DTOs.UserRequestDTO;
+import com.example.SpringBootApp.DTOs.UserResponseDTO;
 import com.example.SpringBootApp.Entity.Cards;
 import com.example.SpringBootApp.UserEntity.User;
 import com.example.SpringBootApp.Service.UserService;
@@ -10,7 +14,7 @@ import com.example.SpringBootApp.Repository.CardsRepository;
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
-
+import com.example.SpringBootApp.Mappers.ManualMapper;
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,27 +27,36 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Autowired
+    private ManualMapper manualMapper;
+
+
     //create new user
     @PostMapping("/user")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        User newUser = userService.saveUser(user);
-        return ResponseEntity.ok(newUser);
+    public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserRequestDTO dto) {
+        //to dto
+        User newUser = manualMapper.mapToUserRequest(dto);
+        //saves to service
+        User savedUser = userService.saveUser(newUser);
+        //sends data back to the client so it knows that a user has been made
+        UserResponseDTO responseDTO = manualMapper.mapToUserResponse(savedUser);
+        return ResponseEntity.ok(responseDTO);
     }
 
     //get all users
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<UserResponseDTO> getAllUsers() {
+        return userService.getAllUsers().stream().map(manualMapper::mapToUserResponse).toList();
     }
 
     //get user by id
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        Optional<User> user = userService.getUserById(id);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id).map(manualMapper::mapToUserResponse).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     //update user by id
+    // update
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         User updatedUser = userService.updateUser(id, user);
@@ -59,17 +72,25 @@ public class UserController {
 
 
     //getter for users cards
+    // this may not work!!!!!!!!!
+    // check this later to see if works!!!!!!!!
     @GetMapping("/{id}/cards")
-    public ResponseEntity<List<Cards>> getUserCards(@PathVariable Long id) {
+    public ResponseEntity<List<CardsResponseDTO>> getUserCards(@PathVariable Long id) {
         List<Cards> cards = userService.getUserCards(id);
-        return ResponseEntity.ok(cards);
+
+        List<CardsResponseDTO> dtos = cards.stream().map(manualMapper::mapToCardsResponse).toList();
+
+        return ResponseEntity.ok(dtos);
     }
+
 
     //post users cards
     @PostMapping("/{id}/cards")
-    public ResponseEntity<Cards> addCardToUser(@PathVariable Long id, @RequestBody Cards card) {
+    public ResponseEntity<CardsResponseDTO> addCardToUser(@PathVariable Long id, @RequestBody CardsRequestDTO dto) {
+        Cards card = manualMapper.mapToCardsRequest(dto);
         Cards newCard = userService.addCardToUser(id, card);
-        return ResponseEntity.ok(newCard);
+        CardsResponseDTO responseDTO = manualMapper.mapToCardsResponse(newCard);
+        return ResponseEntity.ok(responseDTO);
     }
 
     //testing method  DELETE LATER

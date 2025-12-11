@@ -6,6 +6,7 @@ import com.example.SpringBootApp.Repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.SpringBootApp.UserEntity.User;
+import com.example.SpringBootApp.Mappers.ManualMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +16,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final CardsRepository cardsRepository;
+    private final ManualMapper manualMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, CardsRepository cardsRepository) {
+    public UserService(UserRepository userRepository, CardsRepository cardsRepository, ManualMapper manualMapper) {
         this.userRepository = userRepository;
         this.cardsRepository = cardsRepository;
+        this.manualMapper = manualMapper;
     }
 
 
@@ -64,6 +67,8 @@ public class UserService {
     public Cards addCardToUser(Long userId, Cards card) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
         card.setUser(user);
+        //this is meant to update the other side of the relationship; each card has a user and each user has a card etc.
+        user.getCards().add(card);  //maybe delete this later!!!!!!!
         return cardsRepository.save(card);
     }
 }

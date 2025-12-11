@@ -3,6 +3,8 @@ package com.example.SpringBootApp.UserEntity;
 import com.example.SpringBootApp.Entity.Cards;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 //possibly add email signup notifications
@@ -24,7 +26,8 @@ public class User {
     //mapping relations
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Cards> cards;
+    //this will init a new list so that the app doesnt crash when making a new user with saveUser in the user controller
+    private List<Cards> cards = new ArrayList<>();
 
     //getters
     public Long getId() {return id;}

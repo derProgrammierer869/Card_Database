@@ -1,13 +1,15 @@
 package com.example.SpringBootApp.Mappers;
+
 import com.example.SpringBootApp.DTOs.CardsRequestDTO;
 import com.example.SpringBootApp.DTOs.UserRequestDTO;
 import com.example.SpringBootApp.DTOs.UserResponseDTO;
 import com.example.SpringBootApp.DTOs.CardsResponseDTO;
 import com.example.SpringBootApp.Entity.Cards;
 import com.example.SpringBootApp.UserEntity.User;
-
+import org.springframework.stereotype.Component;
 
 //user should be able to add a card without needing to be signed in. also users should be unique, no duplicate usernames
+@Component
 public class ManualMapper {
 
     //maps outgoing user and cards
