@@ -32,7 +32,7 @@ public class CardService {
     }
 
     //get card based on id
-
+    //update method name to getCardsById
     public Optional<Cards> getCards(Long id) {
         return cardsRepository.findById(id);
     }
