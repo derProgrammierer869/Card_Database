@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.example.SpringBootApp.Repository.CardsRepository;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Sort;
+
 
 @Service
 public class CardService {
@@ -28,7 +30,7 @@ public class CardService {
     //get all the cards. returns a list of the cards
 
     public List<Cards> getAllCards() {
-        return cardsRepository.findAll();
+        return cardsRepository.findAll(Sort.by(Sort.Direction.ASC, "cardName"));
     }
 
     //get card based on id
