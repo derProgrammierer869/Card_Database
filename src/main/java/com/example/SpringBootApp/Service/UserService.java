@@ -66,6 +66,10 @@ public class UserService {
 
     public Cards addCardToUser(Long userId, Cards card) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
+        boolean exists = cardsRepository.existsByUserIdAndCardNameAndSetNameAndCardNumber(userId, card.getCardName(), card.getSetName(), card.getCardNumber());
+        if (exists) {
+            throw new RuntimeException("Card already exists under this user!");
+        }
         card.setUser(user);
         //this is meant to update the other side of the relationship; each card has a user and each user has a card etc.
         user.getCards().add(card);  //maybe delete this later!!!!!!!

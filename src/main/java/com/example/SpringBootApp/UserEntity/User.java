@@ -26,7 +26,7 @@ public class User {
     //mapping relations
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    //this will init a new list so that the app doesnt crash when making a new user with saveUser in the user controller
+    //this will init a new list so that the app does not crash when making a new user with saveUser in the user controller
     private List<Cards> cards = new ArrayList<>();
 
     //getters
