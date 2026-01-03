@@ -19,7 +19,7 @@ public class ManualMapper {
                 user.getUsername(),
 
                 user.getCards().stream().map(this::mapToCardsResponse).toList(),
-                user.getTotalUserCards()
+                user.userCards()
         );
     }
 
