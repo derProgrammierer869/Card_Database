@@ -22,6 +22,8 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name= "total user cards", nullable = false)
+    private int totalUserCards;
 
     //mapping relations
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -29,12 +31,14 @@ public class User {
     //this will init a new list so that the app does not crash when making a new user with saveUser in the user controller
     private List<Cards> cards = new ArrayList<>();
 
+    private int userCards = getCards().size();
     //getters
     public Long getId() {return id;}
 
     public String getUsername() {return username;}
     public String getPassword() {return password;}
     public List<Cards> getCards() {return cards;}
+    public int getTotalUserCards() {return userCards;}
 
     //setters
     public void setId(Long id) {this.id = id;}

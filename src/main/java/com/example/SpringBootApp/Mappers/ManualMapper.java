@@ -18,7 +18,8 @@ public class ManualMapper {
                 user.getId(),
                 user.getUsername(),
 
-                user.getCards().stream().map(this::mapToCardsResponse).toList()
+                user.getCards().stream().map(this::mapToCardsResponse).toList(),
+                user.getTotalUserCards()
         );
     }
 
