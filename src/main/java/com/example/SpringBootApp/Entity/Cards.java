@@ -22,7 +22,7 @@ public class Cards {
     @Column(name ="cardNumber", nullable = false)
     private String cardNumber;
 
-    @Column(name = "ownedCount", nullable = false, columnDefinition = "integer default 1")
+    @Column(name = "ownedCount", nullable = false)
     private Integer ownedCount;
 
 
