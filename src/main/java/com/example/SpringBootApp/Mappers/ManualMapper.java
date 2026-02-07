@@ -28,7 +28,8 @@ public class ManualMapper {
                 cards.getId(),
                 cards.getCardName(),
                 cards.getSetName(),
-                cards.getCardNumber()
+                cards.getCardNumber(),
+                cards.getOwnedCount()
         );
     }
 
@@ -46,6 +47,7 @@ public class ManualMapper {
         cards.setCardName(cardsRequestDTO.cardName());
         cards.setSetName(cardsRequestDTO.setName());
         cards.setCardNumber(cardsRequestDTO.cardNumber());
+        cards.setOwnedCount(cardsRequestDTO.ownedCount());
         return cards;
     }
 

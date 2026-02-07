@@ -22,6 +22,9 @@ public class Cards {
     @Column(name ="cardNumber", nullable = false)
     private String cardNumber;
 
+    @Column(name = "ownedCount", nullable = false, columnDefinition = "integer default 1")
+    private Integer ownedCount;
+
 
     //make comments explaining this later
     @ManyToOne
@@ -36,6 +39,7 @@ public class Cards {
     public String getCardName() {return cardName;}
     public String getSetName() {return setName;}
     public String getCardNumber() {return cardNumber;}
+    public Integer getOwnedCount() {return ownedCount;}
     public User getUser() {return user;}
 
     //setters
@@ -48,6 +52,7 @@ public class Cards {
         this.setName = setName;
     }
     public void setCardNumber(String cardNumber) {this.cardNumber = cardNumber;}
+    public void setOwnedCount(Integer ownedCount) {this.ownedCount = ownedCount;}
     public void setUser(User user) {this.user = user;}
 
 }

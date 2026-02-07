@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
                                 //name of the entity and the Long is the primary key
 public interface CardsRepository extends JpaRepository<Cards, Long> {
     //checks to see if the cards already exist or not
-    boolean existsByUserIdAndCardNameAndSetNameAndCardNumber(Long userId, String cardName, String setName, String cardNumber);
+    boolean existsByUserIdAndCardNameAndSetNameAndCardNumberAndOwnedCount(Long userId, String cardName, String setName, String cardNumber, Integer ownedCount);
 }
 
 

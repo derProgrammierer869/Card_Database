@@ -66,7 +66,7 @@ public class UserService {
 
     public Cards addCardToUser(Long userId, Cards card) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
-        boolean exists = cardsRepository.existsByUserIdAndCardNameAndSetNameAndCardNumber(userId, card.getCardName(), card.getSetName(), card.getCardNumber());
+        boolean exists = cardsRepository.existsByUserIdAndCardNameAndSetNameAndCardNumberAndOwnedCount(userId, card.getCardName(), card.getSetName(), card.getCardNumber(), card.getOwnedCount());
         if (exists) {
             throw new RuntimeException("Card already exists under this user!");
         }
