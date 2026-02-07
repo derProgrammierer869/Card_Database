@@ -48,6 +48,7 @@ public class CardService {
             cards.setCardName(updatedCards.getCardName());
             cards.setSetName(updatedCards.getSetName());
             cards.setCardNumber(updatedCards.getCardNumber());
+            cards.setOwnedCount(updatedCards.getOwnedCount());
             return cardsRepository.save(cards);
         }
         else {
