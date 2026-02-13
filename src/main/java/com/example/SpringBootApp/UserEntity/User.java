@@ -3,8 +3,11 @@ package com.example.SpringBootApp.UserEntity;
 import com.example.SpringBootApp.Entity.Cards;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //possibly add email signup notifications
@@ -22,8 +25,14 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    //@Column(name= "totalUserCards", nullable = false)
-    //private int totalUserCards;
+    @CreationTimestamp
+    @Column(name = "created_date", updatable = false)
+    private Date createdDate;
+
+    @UpdateTimestamp
+    @Column(name = "last_updated")
+    private Date lastUpdated;
+
 
     //mapping relations
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -43,7 +52,8 @@ public class User {
     public String getUsername() {return username;}
     public String getPassword() {return password;}
     public List<Cards> getCards() {return cards;}
-    //public int getTotalUserCards() {return userCards;}
+    public Date getCreatedDate() {return createdDate;}
+    public Date getLastUpdated() {return lastUpdated;}
 
     //setters
     public void setId(Long id) {this.id = id;}
@@ -51,8 +61,6 @@ public class User {
     public void setUsername(String username) {this.username = username;}
     public void setPassword(String password) {this.password = password;}
     public void setCards(List<Cards> cards) {this.cards = cards;}
-
-
-    //change order of the getTotalUserCards in the response dto
-
+    public void setCreatedDate(Date createdDate) {this.createdDate = createdDate;}
+    public void setLastUpdated(Date lastUpdated) {this.lastUpdated = lastUpdated;}
 }

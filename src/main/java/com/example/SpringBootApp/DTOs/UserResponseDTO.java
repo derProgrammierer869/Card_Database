@@ -1,5 +1,13 @@
 package com.example.SpringBootApp.DTOs;
+import java.util.Date;
 import java.util.List;
 
-public record UserResponseDTO(Long id, String username, List<CardsResponseDTO> cards, int userCards) {
+public record UserResponseDTO(
+        Long id,
+        String username,
+        List<CardsResponseDTO> cards,
+        int userCards,
+        Date createDate,
+        Date lastUpdated
+) {
 }
