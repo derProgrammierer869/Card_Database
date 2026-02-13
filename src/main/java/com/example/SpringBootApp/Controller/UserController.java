@@ -15,6 +15,8 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import com.example.SpringBootApp.Mappers.ManualMapper;
+import org.springframework.security.core.Authentication;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -75,10 +77,22 @@ public class UserController {
     // this may not work!!!!!!!!!
     // check this later to see if works!!!!!!!!
     @GetMapping("/{id}/cards")
-    public ResponseEntity<List<CardsResponseDTO>> getUserCards(@PathVariable Long id) {
-        List<Cards> cards = userService.getUserCards(id);
+    public ResponseEntity<List<CardsResponseDTO>> getUserCards(
+            @PathVariable Long id,
+            Authentication authentication // Spring injects the logged-in user here
+    ) {
+        // Get the logged-in User object
+        User loggedInUser = (User) authentication.getPrincipal();
 
-        List<CardsResponseDTO> dtos = cards.stream().map(manualMapper::mapToCardsResponse).toList();
+        // Check that the requested id matches the logged-in user
+        if (!loggedInUser.getId().equals(id)) {
+            return ResponseEntity.status(403).build(); // Forbidden
+        }
+
+        List<Cards> cards = userService.getUserCards(id);
+        List<CardsResponseDTO> dtos = cards.stream()
+                .map(manualMapper::mapToCardsResponse)
+                .toList();
 
         return ResponseEntity.ok(dtos);
     }
