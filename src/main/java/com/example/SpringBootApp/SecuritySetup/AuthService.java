@@ -1,5 +1,6 @@
 package com.example.SpringBootApp.SecuritySetup;
 
+import com.example.SpringBootApp.exceptionHandlers.usernameAlreadyExistsException;
 import org.springframework.stereotype.Service;
 import com.example.SpringBootApp.Repository.UserRepository;
 import com.example.SpringBootApp.Repository.CardsRepository;
@@ -23,9 +24,13 @@ public class AuthService {
     }
 
     public void register(RegisterRequest request) {
+        if(userRepo.existsByUsername(request.username())) {
+            throw new IllegalStateException("Username already exists!");
+        }
         User user = new User();
         user.setUsername(request.username());
         user.setPassword(passwordEncoder.encode(request.password()));
+        user.setEmail(request.email());
         userRepo.save(user);
     }
 

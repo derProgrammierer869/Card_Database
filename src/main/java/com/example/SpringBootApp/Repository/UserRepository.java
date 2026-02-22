@@ -10,4 +10,5 @@ import java.util.Optional;
 //name of the entity and the Long is the primary key
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
+    boolean existsByUsername(String username);
 }

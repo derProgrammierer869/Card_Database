@@ -33,18 +33,6 @@ public class UserController {
     private ManualMapper manualMapper;
 
 
-    //create new user
-    @PostMapping("/user")
-    public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserRequestDTO dto) {
-        //to dto
-        User newUser = manualMapper.mapToUserRequest(dto);
-        //saves to service
-        User savedUser = userService.saveUser(newUser);
-        //sends data back to the client so it knows that a user has been made
-        UserResponseDTO responseDTO = manualMapper.mapToUserResponse(savedUser);
-        return ResponseEntity.ok(responseDTO);
-    }
-
     //get all users
     @GetMapping
     public List<UserResponseDTO> getAllUsers() {

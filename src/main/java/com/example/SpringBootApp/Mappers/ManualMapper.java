@@ -17,6 +17,7 @@ public class ManualMapper {
         return new UserResponseDTO(
                 user.getId(),
                 user.getUsername(),
+                user.getEmail(),
                 user.getCards().stream().map(this::mapToCardsResponse).toList(),
                 user.userCards(),
                 user.getCreatedDate(),

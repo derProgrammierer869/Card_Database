@@ -3,6 +3,7 @@ package com.example.SpringBootApp.Service;
 import com.example.SpringBootApp.Entity.Cards;
 import com.example.SpringBootApp.Repository.UserRepository;
 import com.example.SpringBootApp.Repository.CardsRepository;
+import com.example.SpringBootApp.exceptionHandlers.usernameAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.SpringBootApp.UserEntity.User;
@@ -26,11 +27,6 @@ public class UserService {
         this.manualMapper = manualMapper;
     }
 
-
-    //save a user
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
 
     //get a user
     public List<User> getAllUsers() {

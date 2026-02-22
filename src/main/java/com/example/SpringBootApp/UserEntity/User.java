@@ -3,6 +3,8 @@ package com.example.SpringBootApp.UserEntity;
 import com.example.SpringBootApp.Entity.Cards;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,7 +12,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//possibly add email signup notifications
+import lombok.*;
+
+
+//For unit testing
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 public class User {
@@ -19,11 +27,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @NotBlank
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Email
+    @NotBlank
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
@@ -51,6 +66,7 @@ public class User {
 
     public String getUsername() {return username;}
     public String getPassword() {return password;}
+    public String getEmail() {return email;}
     public List<Cards> getCards() {return cards;}
     public Date getCreatedDate() {return createdDate;}
     public Date getLastUpdated() {return lastUpdated;}
@@ -60,6 +76,7 @@ public class User {
 
     public void setUsername(String username) {this.username = username;}
     public void setPassword(String password) {this.password = password;}
+    public void setEmail(String email) {this.email = email;}
     public void setCards(List<Cards> cards) {this.cards = cards;}
     public void setCreatedDate(Date createdDate) {this.createdDate = createdDate;}
     public void setLastUpdated(Date lastUpdated) {this.lastUpdated = lastUpdated;}
