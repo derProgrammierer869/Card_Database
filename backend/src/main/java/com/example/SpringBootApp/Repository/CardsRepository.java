@@ -2,7 +2,12 @@ package com.example.SpringBootApp.Repository;
 
 import com.example.SpringBootApp.Entity.Cards;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Repository
@@ -17,6 +22,11 @@ public interface CardsRepository extends JpaRepository<Cards, Long> {
             String setName,
             String cardNumber
     );
+
+    @Modifying
+    @Transactional
+    @Query("delete from Cards c where c.user.id = :userId")
+    void deleteAllCardsFromUser(@Param("userId") Long userId);
 }
 
 

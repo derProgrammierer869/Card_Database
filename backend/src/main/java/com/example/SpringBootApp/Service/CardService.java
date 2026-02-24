@@ -33,6 +33,12 @@ public class CardService {
         return cardsRepository.findAll(Sort.by(Sort.Direction.ASC, "cardName"));
     }
 
+
+    //delete all of users cards
+    public void deleteAllCards(Long id) {
+        cardsRepository.deleteAllCardsFromUser(id);
+    }
+
     //get card based on id
     //update method name to getCardsById
     public Optional<Cards> getCards(Long id) {

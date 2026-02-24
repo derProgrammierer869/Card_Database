@@ -5,6 +5,9 @@ import com.example.SpringBootApp.Repository.UserRepository;
 import com.example.SpringBootApp.Repository.CardsRepository;
 import com.example.SpringBootApp.exceptionHandlers.usernameAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.example.SpringBootApp.UserEntity.User;
 import com.example.SpringBootApp.Mappers.ManualMapper;
@@ -56,6 +59,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+
+
+
     //get users cards
     public List<Cards> getUserCards(Long userId) {
         return userRepository.findById(userId).map(User::getCards).orElseThrow(() -> new RuntimeException("User not found."));
@@ -87,4 +93,13 @@ public class UserService {
         user.getCards().add(card);  //maybe delete this later!!!!!!!
         return cardsRepository.save(card);
     }
+
+//    //find all logged-in users. this may not work right
+//    public List<User> getLoggedInUsers() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if(!(authentication instanceof AnonymousAuthenticationToken)) {
+//            String currentUsername = authentication.getName();
+//            return currentUsername;
+//        }
+        //}
 }

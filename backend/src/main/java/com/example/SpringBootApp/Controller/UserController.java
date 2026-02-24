@@ -5,6 +5,7 @@ import com.example.SpringBootApp.DTOs.CardsResponseDTO;
 import com.example.SpringBootApp.DTOs.UserRequestDTO;
 import com.example.SpringBootApp.DTOs.UserResponseDTO;
 import com.example.SpringBootApp.Entity.Cards;
+import com.example.SpringBootApp.Service.CardService;
 import com.example.SpringBootApp.UserEntity.User;
 import com.example.SpringBootApp.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,12 @@ import org.springframework.security.core.Authentication;
 public class UserController {
 
     private final UserService userService;
+    private final CardService cardService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CardService cardService) {
         this.userService = userService;
+        this.cardService = cardService;
     }
 
     @Autowired
@@ -53,6 +56,10 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+
+    //change this so that it only deletes the current logged in user
+    //add this feature to all methods, only allow user to see their own cards by default
+    //they have to use another method to see other peoples cards
     //delete user
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
@@ -60,6 +67,12 @@ public class UserController {
         return ResponseEntity.ok("User deleted successfully");
     }
 
+    //this should only delete the current users cards
+    @DeleteMapping("/{id}/deleteallcards")
+    public ResponseEntity<Void> deleteUserCards(@PathVariable Long id) {
+        cardService.deleteAllCards(id);
+        return ResponseEntity.noContent().build();
+    }
 
     //getter for users cards
     // this may not work!!!!!!!!!
@@ -98,6 +111,13 @@ public class UserController {
     //testing method  DELETE LATER
     @GetMapping("/ping")
     public ResponseEntity<String> ping(){ return ResponseEntity.ok("pong"); }
+
+//    //get all logged in users getLoggedInUsers()
+//    @GetMapping("/loggedInUsers")
+//    public List<UserResponseDTO> getLoggedInUsers() {
+//        return userService.getLoggedInUsers().stream().map(manualMapper::mapToUserResponse).toList();
+//    }
+
 
 
 }
