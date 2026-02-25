@@ -10,6 +10,8 @@ import com.example.SpringBootApp.UserEntity.User;
 import com.example.SpringBootApp.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import com.example.SpringBootApp.Repository.CardsRepository;
 import javax.swing.text.html.Option;
@@ -96,6 +98,15 @@ public class UserController {
                 .toList();
 
         return ResponseEntity.ok(dtos);
+    }
+
+    @DeleteMapping("/deleteSelf")
+    public ResponseEntity<String> deleteCurrentUser(Authentication authentication) {
+        //checks who *is currently logged in
+        String username = authentication.getName();
+        userService.deleteCurrentUser(username);
+        return ResponseEntity.ok("Your account has been deleted!");
+
     }
 
 

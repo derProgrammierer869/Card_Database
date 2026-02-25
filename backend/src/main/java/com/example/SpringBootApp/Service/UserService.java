@@ -60,7 +60,13 @@ public class UserService {
     }
 
 
+    //delete current user
+    @Transactional
+    public void deleteCurrentUser(String userName) {
+        User user = userRepository.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found!"));
+        userRepository.delete(user);
 
+    }
 
     //get users cards
     public List<Cards> getUserCards(Long userId) {
